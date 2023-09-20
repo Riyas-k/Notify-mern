@@ -8,7 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 mongoose_1.default.set("strictQuery", true);
 const connectDB = async () => {
     try {
-        await mongoose_1.default.connect('mongodb://127.0.0.1:27017/notify').then(() => {
+        await mongoose_1.default.connect('mongodb+srv://mohammedriyazriyaz04:*****@cluster0.balviqn.mongodb.net/').then(() => {
             console.log(`Database connected Successfully`);
         });
     }

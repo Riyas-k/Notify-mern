@@ -5,7 +5,7 @@ mongoose.set("strictQuery", true);
 
 const connectDB = async () => {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/notify',).then(() => {
+    await mongoose.connect('mongodb+srv://mohammedriyazriyaz04:qgJYRIJmuY14Z4Rj@cluster0.mlw4hzb.mongodb.net/reminder',).then(() => {
       console.log(`Database connected Successfully`);
     });
   } catch (error) {
