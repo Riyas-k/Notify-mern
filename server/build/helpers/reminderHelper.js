@@ -5,30 +5,30 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const reminderSchema_1 = __importDefault(require("../models/reminderSchema"));
+//Whatsapp reminding functionality
 setInterval(async () => {
     try {
-        const reminderList = await reminderSchema_1.default.find({}).exec();
+        const reminderList = await reminderSchema_1.default.find({}).exec(); // Use .exec() to execute the query
         if (reminderList) {
-            for (const element of reminderList) {
-                if (!element.isReminded) {
+            for (const reminder of reminderList) {
+                if (!reminder.isReminded) {
                     const now = new Date();
-                    if (element.remindAt && typeof element.remindAt === "string") {
-                        const remindAtDate = new Date(element.remindAt);
+                    const remindAt = reminder.remindAt;
+                    if (remindAt) {
+                        const remindAtDate = new Date(remindAt);
                         if (!isNaN(remindAtDate.getTime()) &&
                             remindAtDate.getTime() - now.getTime() < 0) {
-                            // Use await to ensure the update completes before sending the message
-                            await reminderSchema_1.default.findByIdAndUpdate(element._id, {
+                            await reminderSchema_1.default.findByIdAndUpdate(reminder._id, {
                                 isReminded: true,
                             });
-                            // Send Message
                             const accountSid = process.env.ACCOUNTSID;
                             const authToken = process.env.AUTHTOKENTWILIO;
                             const client = require("twilio")(accountSid, authToken);
                             try {
                                 const message = await client.messages.create({
-                                    body: element.reminderMsg,
+                                    body: reminder.reminderMsg,
                                     from: "whatsapp:+14155238886",
-                                    to: "whatsapp:+918592948232",
+                                    to: "whatsapp:+918592948232", // YOUR PHONE NUMBER INSTEAD OF 8888888888
                                 });
                                 console.log(`WhatsApp message sent: ${message.sid}`);
                             }
@@ -38,7 +38,7 @@ setInterval(async () => {
                         }
                     }
                     else {
-                        console.error("Invalid date string or missing remindAt value:", element.remindAt);
+                        console.error("Invalid date format for reminder.remindAt");
                     }
                 }
             }
