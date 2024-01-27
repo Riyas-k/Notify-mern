@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const connection = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "http://notify.circle-up.online/api",
 });
 
 export default connection;
