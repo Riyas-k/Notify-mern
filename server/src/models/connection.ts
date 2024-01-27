@@ -4,8 +4,9 @@ import mongoose from "mongoose";
 mongoose.set("strictQuery", true);
 
 const connectDB = async () => {
+  const URI:string | undefined = process.env.MONGO_URI || ''
   try {
-    await mongoose.connect('mongodb+srv://mohammedriyazriyaz04:Mm0Fvg1KTBB8i0J3@cluster0.cxy77zs.mongodb.net/reminder',).then(() => {
+    await mongoose.connect(URI).then(() => {
       console.log(`Database connected Successfully`);
     });
    

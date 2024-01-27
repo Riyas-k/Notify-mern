@@ -28,7 +28,7 @@ setInterval(async () => {
                                 const message = await client.messages.create({
                                     body: reminder.reminderMsg,
                                     from: "whatsapp:+14155238886",
-                                    to: "whatsapp:+918592948232", // YOUR PHONE NUMBER INSTEAD OF 8888888888
+                                    to: "whatsapp:+918592948232", // YOUR PHONE NUMBER
                                 });
                                 console.log(`WhatsApp message sent: ${message.sid}`);
                             }
@@ -53,7 +53,7 @@ module.exports = {
         return new Promise(async (resolve, reject) => {
             try {
                 const data = await reminderSchema_1.default.find();
-                if (data.length) {
+                if (data) {
                     resolve(data);
                 }
                 else {
